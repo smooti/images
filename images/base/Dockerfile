@@ -46,11 +46,12 @@ RUN apt-get update && \
     vim \
     wget \
     rsync \
-		terraform && \
+	terraform \
+    openssh-client && \
 # Install latest Git using their official PPA
-		add-apt-repository ppa:git-core/ppa && \
+	add-apt-repository ppa:git-core/ppa && \
     apt-get install --yes git && \
-		rm -rf /var/lib/apt/lists/*
+	rm -rf /var/lib/apt/lists/*
 
 # Enables Docker starting with systemd
 RUN systemctl enable docker
