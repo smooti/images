@@ -16,10 +16,6 @@ COPY docker.list /etc/apt/sources.list.d/docker.list
 COPY hashicorp-archive-keyring.gpg /usr/share/keyrings/hashicorp-archive-keyring.gpg
 COPY hashicorp.list /etc/apt/sources.list.d/hashicorp.list
 
-# Add main ubuntu repositoriy to list
-RUN echo "deb http://archive.ubuntu.com/ubuntu noble main universe restricted multiverse" \
-    >> /etc/apt/sources.list
-
 # Install baseline packages
 RUN apt-get update && \
     apt-get install --yes --no-install-recommends --no-install-suggests \
