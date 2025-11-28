@@ -12,6 +12,10 @@ RUN apt-get update && \
 COPY docker-archive-keyring.gpg /usr/share/keyrings/docker-archive-keyring.gpg
 COPY docker.list /etc/apt/sources.list.d/docker.list
 
+# Install Hashicorp apt repository
+COPY hashicorp-archive-keyring.gpg /usr/share/keyrings/hashicorp-archive-keyring.gpg
+COPY hashicorp.list /etc/apt/sources.list.d/hashicorp.list
+
 # Install baseline packages
 RUN apt-get update && \
     apt-get install --yes --no-install-recommends --no-install-suggests \
@@ -38,7 +42,8 @@ RUN apt-get update && \
     vim \
     wget \
     rsync \
-		git &&\
+		git \
+		terraform &&\
 		rm -rf /var/lib/apt/lists/*
 
 # Enables Docker starting with systemd
