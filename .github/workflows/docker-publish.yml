@@ -15,9 +15,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Registers QEMU binfmt support on the runner.
+      # Enables building images for multiple CPU architectures (multi-arch) when using Buildx.
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v2
 
+      # Installs and configures Docker Buildx (an advanced builder that supports modern build features).
+      # build-push-action uses Buildx for better caching, multi-platform builds, and improved performance.
+      # Buildx also enables pushing directly from the builder.
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v2
 
@@ -27,6 +32,7 @@ jobs:
             echo "Missing DOCKERHUB_USERNAME or DOCKERHUB_TOKEN secrets"; exit 1;
           fi
 
+      # Provide builder with credentials to push to Docker Hub
       - name: Login to Docker Hub
         uses: docker/login-action@v2
         with:
@@ -34,6 +40,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
+      # Builds the Docker image from the specified context and Dockerfile,
+      # then pushes the image to Docker Hub.
+      #
+      # NOTE: Use GitHub Actions cache to store and reuse build cache layers across workflow runs.
+      # This Dramatically speeds subsequent builds by reusing previously built layers,
+      # reducing network and CPU usage and lowering CI run time and cost
       - name: Build and push to Docker Hub
         uses: docker/build-push-action@v4
         with:
