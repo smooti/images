@@ -17,7 +17,7 @@ COPY hashicorp-archive-keyring.gpg /usr/share/keyrings/hashicorp-archive-keyring
 COPY hashicorp.list /etc/apt/sources.list.d/hashicorp.list
 
 # Add main ubuntu repositoriy to list
-RUN printf "deb http://archive.ubuntu.com/ubuntu noble main universe restricted multiverse\n \
+RUN echo "deb http://archive.ubuntu.com/ubuntu noble main universe restricted multiverse" \
     >> /etc/apt/sources.list
 
 # Install baseline packages
