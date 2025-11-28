@@ -43,10 +43,8 @@ RUN apt-get update && \
     wget \
     rsync \
 	terraform \
-    openssh-client && \
-# Install latest Git using their official PPA
-	add-apt-repository ppa:git-core/ppa && \
-    apt-get install --yes git && \
+    openssh-client \
+    git && \
 	rm -rf /var/lib/apt/lists/*
 
 # Enables Docker starting with systemd
