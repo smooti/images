@@ -45,6 +45,7 @@ RUN apt-get update && \
     rsync \
 	terraform \
 	packer \
+	ansible \
     openssh-client \
     git && \
 	rm -rf /var/lib/apt/lists/*
