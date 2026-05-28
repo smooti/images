@@ -29,7 +29,7 @@ RUN apt-get update && \
     docker-compose-plugin \
     htop \
     jq \
-		yq \
+	yq \
     locales \
     man \
     pipx \
@@ -43,7 +43,8 @@ RUN apt-get update && \
     vim \
     wget \
     rsync \
-		terraform \
+	terraform \
+	packer \
     openssh-client \
     git && \
 	rm -rf /var/lib/apt/lists/*
