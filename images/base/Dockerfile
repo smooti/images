@@ -51,11 +51,9 @@ RUN apt-get update && \
 	git && \
 	rm -rf /var/lib/apt/lists/*
 
-# Enables Docker starting with systemd
-RUN systemctl enable docker
-
-# Create a symlink for standalone docker-compose usage
-RUN ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/bin/docker-compose
+# Enables Docker starting with systemd and Create a symlink for standalone docker-compose usage
+RUN systemctl enable docker && \
+	ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/bin/docker-compose
 
 # Generate the desired locale (en_US.UTF-8)
 RUN locale-gen en_US.UTF-8
@@ -80,22 +78,20 @@ USER godwyn
 # Ensure directory where pipx stores apps is in your PATH environment variable
 RUN pipx ensurepath
 
-# Ensure packer plugin directory exists
-RUN mkdir -p /home/godwyn/.config/packer/plugins
-
 ARG PACKER_VSPHERE_PLUGIN_VERSION=2.1.1
 ARG PACKER_ANSIBLE_PLUGIN_VERSION=1.1.4
 ARG PACKER_GIT_PLUGIN_VERSION=0.6.5
 
-# Install packer plugins
-RUN packer plugins install \
-    github.com/hashicorp/vsphere \
-    ${PACKER_VSPHERE_PLUGIN_VERSION}
-
-RUN packer plugins install \
-    github.com/hashicorp/ansible \
-    ${PACKER_ANSIBLE_PLUGIN_VERSION}
-
-RUN packer plugins install \
-    github.com/ethanmdavidson/git \
-    ${PACKER_GIT_PLUGIN_VERSION}
+# Ensure packer plugin directory exists and install packer plugins
+RUN mkdir -p /home/godwyn/.config/packer/plugins && \
+	packer plugins install \
+  github.com/hashicorp/vsphere \
+  ${PACKER_VSPHERE_PLUGIN_VERSION} && \
+	\
+	packer plugins install \
+  github.com/hashicorp/ansible \
+  ${PACKER_ANSIBLE_PLUGIN_VERSION} && \
+	\
+	packer plugins install \
+  github.com/ethanmdavidson/git \
+  ${PACKER_GIT_PLUGIN_VERSION}
