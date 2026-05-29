@@ -78,3 +78,23 @@ USER godwyn
 
 # Ensure directory where pipx stores apps is in your PATH environment variable
 RUN pipx ensurepath
+
+# Ensure packer plugin directory exists
+RUN mkdir -p /home/godwyn/.config/packer/plugins
+
+ARG PACKER_VSPHERE_PLUGIN_VERSION=2.1.1
+ARG PACKER_ANSIBLE_PLUGIN_VERSION=1.1.4
+ARG PACKER_GIT_PLUGIN_VERSION=0.6.5
+
+# Insrall packer plugins
+RUN packer plugins install \
+    github.com/hashicorp/vsphere \
+    ${PACKER_VSPHERE_PLUGIN_VERSION}
+
+RUN packer plugins install \
+    github.com/hashicorp/ansible \
+    ${PACKER_ANSIBLE_PLUGIN_VERSION}
+
+RUN packer plugins install \
+    github.com/ethanmdavidson/git \
+    ${PACKER_GIT_PLUGIN_VERSION}
