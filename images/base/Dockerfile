@@ -86,7 +86,7 @@ ARG PACKER_VSPHERE_PLUGIN_VERSION=2.1.1
 ARG PACKER_ANSIBLE_PLUGIN_VERSION=1.1.4
 ARG PACKER_GIT_PLUGIN_VERSION=0.6.5
 
-# Insrall packer plugins
+# Install packer plugins
 RUN packer plugins install \
     github.com/hashicorp/vsphere \
     ${PACKER_VSPHERE_PLUGIN_VERSION}
