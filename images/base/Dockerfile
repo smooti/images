@@ -47,6 +47,7 @@ RUN apt-get update && \
 	packer \
 	ansible \
 	openssh-client \
+	xorriso \
 	git && \
 	rm -rf /var/lib/apt/lists/*
 
@@ -59,7 +60,7 @@ RUN ln -s /usr/libexec/docker/cli-plugins/docker-compose /usr/bin/docker-compose
 # Generate the desired locale (en_US.UTF-8)
 RUN locale-gen en_US.UTF-8
 
-# Make typing unicode characters in the terminal work.
+# Make typing unicode characters in the terminal work
 ENV LANG=en_US.UTF-8
 ENV LANGUAGE=en_US.UTF-8
 ENV LC_ALL=en_US.UTF-8
